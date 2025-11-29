@@ -27,7 +27,7 @@
     #define WIN32_LEAN_AND_MEAN  // Exclude rarely-used Windows stuff
     #define NOMINMAX              // Prevent Windows min/max macros
     #include <windows.h>
-    // Do NOT undef 'byte' here — platform headers may define it; manage in vartypes.h instead.
+    // previously: #undef byte
 #endif
 
 #define EXIT_S 0
