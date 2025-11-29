@@ -2,7 +2,12 @@ import sys
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "1"
 
-import pygame
+try:
+    import pygame
+except ModuleNotFoundError:
+    cmd = "pip install pygame"
+    os.system(cmd)
+    import pygame
 
 def play_sound_file(path):
     try:
