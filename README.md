@@ -229,13 +229,12 @@ Contributions are welcome! Please ensure:
 
 Licensed under the **MIT License**. See LICENSE file for details.
 
-**Copyright © August 2025 Hoang Viet. All rights reserved.**
+**Copyright © November 2025 Hoang Viet. All rights reserved.**
 
 ## Version History
 
-- **1.5.9** — Current stable release (Beta)
-- **1.5.x** — Previous Beta releases
-- **Future:** 2.0 (planned major release)
+- **CStar25**: The Beta Stage of the Language
+- **CStar26**: The Current Release version
 
 # Notes
 - The language is mainly for Windows, so please wait for the update to the Unix-systems compilers.
