@@ -27,10 +27,6 @@ CStar source (.cstar) → Transpile to C++ (.cpp) → Compile to executable
 
 1. Clone or download the CStar repository.
 2. Ensure you have a C++ compiler installed (GCC, Clang, or MSVC).
-3. Build the CStar compiler:
-   ```bash
-   g++ -std=gnu++23 cstcompiler.cpp -o cstarc
-   ```
 
 ### Hello, World!
 
