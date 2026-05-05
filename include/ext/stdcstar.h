@@ -39,6 +39,14 @@
 #define EXIT_S 0
 #define EXIT_F 1
 
+// C# ref keyword
+using ref = std::reference_wrapper<std::string>;
+// C# out keyword
+struct OUTKEY {
+    template<typename T>
+    using out = std::reference_wrapper<T>;
+};
+
 // typedef const char* POSIXSTR;
 
 // Use a small inline C array of C-strings for identifiers to avoid static init order issues

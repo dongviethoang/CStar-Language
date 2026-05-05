@@ -42,6 +42,10 @@ typedef const wchar_t* POSIXWSTR;
 extern int posix_errno;
 extern std::vector<std::fstream*> fd_table;
 
+int getcurrenterrno() {
+    return posix_errno;
+}
+
 ssize_t fileread(std::string file, int fd, void *buf, size_t mbytes) {
     // bad FD → EBADF equivalent, but use ENXIO (no such device/address)
     if (fd < 0 || fd >= (int)fd_table.size() || fd_table[fd] == nullptr) {

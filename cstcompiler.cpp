@@ -34,6 +34,8 @@ int main(int argc, char* argv[]) {
     bool callLinker = false;
     bool linkerVersion = false;
     bool silent = false; // -s silences compiler output
+    bool uselib = false;
+    std::string libname = "";
 
     #ifdef _WIN32
         system("cls");
@@ -49,7 +51,7 @@ int main(int argc, char* argv[]) {
         std::string arg = argv[i];
         if (arg == "-c") {
             compileFlag = true;
-        } else if (endsWith(arg, ".cstar")) {
+        } else if (endsWith(arg, ".cstar") || endsWith(arg, ".ca")) {
             filename = arg;
         } else if (arg == "--version" || arg == "-v") {
             versionFlag = true;
@@ -59,6 +61,9 @@ int main(int argc, char* argv[]) {
             linkerVersion = true;
         } else if (arg == "-s") {
             silent = true;
+        } else if (arg.substr(0, 2) == "-l") {
+            uselib = true;
+            libname = arg.substr(2);
         }
     }
 
@@ -306,7 +311,11 @@ int main(int argc, char* argv[]) {
         // use gnu++23 for GNU/Clang toolchains
         std::string stdFlag = "-std=gnu++23";
 
-        std::string compileCommand = compiler + " " + includePath + " \"" + cppFilename + "\" -w " + stdFlag + " -lm -o \"" + exeFilename + "\"";
+        std::string compileCommand = compiler + " " + includePath + " \"" + cppFilename + "\"";
+        if (uselib && !libname.empty()) {
+            compileCommand += " " + libname + ".cpp";
+        }
+        compileCommand += " -w " + stdFlag + " -lm -o \"" + exeFilename + "\"";
         printOutln("\033[1;34mCompiling...\033[0m");
         int result = system(compileCommand.c_str());
         std::string executecommand = "\"" + exeFilename + "\"";
