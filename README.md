@@ -7,7 +7,7 @@ A newly developed programming language that combines features of C++, Java, and 
 
 - **Type it as:** C*, CStar
 - **Call it as:** CStar, CAsterisk
-- **File extensions:** *.cstar, *.ca, *.c*
+- **File extensions:** *.cstar, *.ca
 
 ## Overview
 
