@@ -11,7 +11,7 @@ A newly developed programming language that combines features of C++, Java, and 
 
 ## Overview
 
-CStar is a superset of C/C++, Java, and C# designed to provide a modern, expressive syntax while maintaining compatibility with existing C++ ecosystems. The language is currently in **development (version CStar26)**.
+CStar is a superset of C/C++, Java, and C# designed to provide a modern, expressive syntax while maintaining compatibility with existing C++ ecosystems. The language is currently in **development (version CStar26 Release 2 2026)**.
 
 ### How It Works
 
@@ -226,7 +226,7 @@ Contributions are welcome! Please ensure:
 
 Licensed under the **MIT License**. See LICENSE file for details.
 
-**Copyright © November 2025 Hoang Viet. All rights reserved.**
+**Copyright © October 2026 Hoang Viet. All rights reserved.**
 
 ## Version History
 

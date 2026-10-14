@@ -652,8 +652,8 @@ int main(int argc, char* argv[]) {
         if (!silent) {
             std::cout << "\033[1;34mCStar Compiler\033[0m" << std::endl;
             std::cout << "Licensed under the \033[1;31mMIT License\033[0m" << std::endl;
-            std::cout << "Version: 1.5.9; Language version: " << current_ver << std::endl;
-            std::cout << "Copyright (c) August 2025 Hoang Viet. All rights reserved." << std::endl;
+            std::cout << "Version: 2.1.0 Alpha; Language version: " << current_ver << std::endl;
+            std::cout << "Copyright (c) October 2026 Hoang Viet. All rights reserved." << std::endl;
         }
         return 0;
     }
