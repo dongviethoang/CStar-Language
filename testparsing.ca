@@ -1,0 +1,13 @@
+#include <ext/stdcstar.h>
+#include <_defs.h>
+
+using namespace std;
+
+__cstdecl asm_util::eax add(int a, int b) {
+    return a + b;
+}
+
+using int main() {
+    System.out.println(add(54, 45));
+    return 0;
+}

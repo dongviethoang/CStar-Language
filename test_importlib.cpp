@@ -3,14 +3,12 @@
 
 
 
-usingfunc::integerfunc mainfunc() {
+int main() {
     
     using namespace std;
     
+        importlib("libcstmath.a", "add");
         add(2, 3);
         return EXIT_S;
 }
 
-int main() {
-    return mainfunc();
-}

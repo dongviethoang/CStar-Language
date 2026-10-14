@@ -12,4 +12,7 @@ void __cdecl pinMode(uint8_t pin, uint8_t mode) {
     volatile uint8_t *reg, *out;
 
     if (port == not_a_pin) return;
+
+    reg = portModeRegister(port);
+    out = 
 }

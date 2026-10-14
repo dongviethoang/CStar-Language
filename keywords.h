@@ -15,5 +15,5 @@ vector<string> keywords = {
     "struct", "union", "enum", "template", "typename", "this",
     "synchronized", "volatile", "extern", "sizeof", "alignof",
     "long", "short", "signed", "unsigned", "explicit", "friend",
-    "Interface", "abstract", "final", "native", "strictfp"
+    "Interface", "abstract", "final", "native", "strictfp", "__cstdecl"
 };

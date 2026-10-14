@@ -5,6 +5,9 @@
 #include <vector>
 #include <thread>
 #include <chrono>
+#include <_defs.h>
+
+cstdecl __cstdecl;
 
 // Forward declarations
 class Out;
@@ -24,6 +27,10 @@ public:
     template<typename T>
     static void println(const T& message) {
         System::println(message);
+    }
+    template<typename T>
+    static void print(const T& message) {
+        std::cout << message;
     }
 };
 

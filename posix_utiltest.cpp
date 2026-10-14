@@ -7,7 +7,7 @@
 #include <cstdlib>
 
 
-usingfunc::integerfunc mainfunc() {
+int main() {
     
     using namespace std;
     
@@ -47,6 +47,3 @@ usingfunc::integerfunc mainfunc() {
         return EXIT_S;
 }
 
-int main() {
-    return mainfunc();
-}

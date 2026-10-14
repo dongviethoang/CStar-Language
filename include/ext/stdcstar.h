@@ -154,9 +154,68 @@ public:
     }
 };
 
+using CSTRFORLIB = const std::string;
 typedef void (*PluginFuncType)();
 
-using CSTRFORLIB = const std::string;
+class CSTImportedFunction {
+public:
+    CSTImportedFunction(CSTRFORLIB& library, CSTRFORLIB& funcName)
+        : handle_(DL_HANDLE_ERROR), funcName_(funcName) {
+#ifdef _WIN32
+        handle_ = LoadLibraryA(library.c_str());
+#else
+        handle_ = dlopen(library.c_str(), RTLD_LAZY);
+#endif
+        if (handle_ == DL_HANDLE_ERROR) {
+            std::cerr << "ERROR: Could not load library: " << library << std::endl;
+            return;
+        }
+
+#ifdef _WIN32
+        func_ = reinterpret_cast<void*>(GetProcAddress(handle_, funcName.c_str()));
+#else
+        func_ = dlsym(handle_, funcName.c_str());
+#endif
+        if (!func_) {
+            std::cerr << "ERROR: Could not find function symbol: " << funcName << std::endl;
+        }
+    }
+
+    CSTImportedFunction(const CSTImportedFunction&) = delete;
+    CSTImportedFunction& operator=(const CSTImportedFunction&) = delete;
+
+    CSTImportedFunction(CSTImportedFunction&& other) noexcept
+        : handle_(other.handle_), func_(other.func_), funcName_(other.funcName_) {
+        other.handle_ = DL_HANDLE_ERROR;
+        other.func_ = nullptr;
+    }
+
+    ~CSTImportedFunction() {
+        if (handle_ != DL_HANDLE_ERROR) {
+#ifdef _WIN32
+            FreeLibrary(handle_);
+#else
+            dlclose(handle_);
+#endif
+        }
+    }
+
+    template<typename... Args>
+    int operator()(Args... args) const {
+        if (!func_) return EXIT_F;
+        using FunctionType = int (*)(Args...);
+        return reinterpret_cast<FunctionType>(func_)(args...);
+    }
+
+private:
+    dl_handle_t handle_;
+    void* func_ = nullptr;
+    std::string funcName_;
+};
+
+static CSTImportedFunction cst_importlib(CSTRFORLIB& library, CSTRFORLIB& funcName) {
+    return CSTImportedFunction(library, funcName);
+}
 
 static void __cdecl importlib(CSTRFORLIB& library, CSTRFORLIB& funcName) {
     dl_handle_t handle = DL_HANDLE_ERROR;

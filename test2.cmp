@@ -1,0 +1,15 @@
+(STRING)TARGET = testerrnos.ca
+(STRING)OUTPUT = testerrnos.exe
+
+def compile:
+    console("cstarc $(TARGET) -c")
+
+def run:
+    #ifdef _WIN32
+        console("$(OUTPUT)")
+    #else
+        console("./$(OUTPUT)")
+    #endif
+
+__init__:
+    compile, run

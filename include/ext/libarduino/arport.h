@@ -38,11 +38,11 @@ const uint8_t PROGMEM digital_pin_to_port_PGM[] = {
 #define __LPM_word(addr) ({
     uint16_t __addr16 = (uint16_t)(addr); \
     uint16_t __result; \
-    __asm__ volatile ( \
+    __asm__ __volatile__ ( \
         "lpm %A0, Z+" "\n\t" \
         "lpm %B0, Z" "\n\t" \
-        : "=r" (__result) \
-        : "z" (__addr16) \
+        : "=r" (__result), "=z" (__addr16) \
+        : "1" (__addr16) \
     ); \
     __result; \
 })
@@ -59,4 +59,5 @@ const uint16_t PROGMEM port_to_mode_PGM[] = {
 };
 
 #define digitalPinToPort(pin) ( pgm_read_byte(digital_pin_to_port_PGM + (pin)) )
+#define portModeRegister(port) ( (volatile uint8_t *)pgm_read_word(port_to_mode_PGM + (port)) )
 #endif // ARPORT_H

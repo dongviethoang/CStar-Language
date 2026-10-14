@@ -7,7 +7,7 @@
 #include <fstream>
 
 
-usingfunc::integerfunc mainfunc() {
+int main() {
     
     using namespace std;
     
@@ -23,6 +23,3 @@ usingfunc::integerfunc mainfunc() {
         return 0;
 }
 
-int main() {
-    return mainfunc();
-}

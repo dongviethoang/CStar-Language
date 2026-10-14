@@ -4,20 +4,21 @@
 #include <string>
 #include <string_view>
 #include <windows.h>
+#include <iostream>
 
 inline int call_sound_player(std::string_view sound_file) noexcept {
-    string command;
+    std::string command;
 
     // Open the file
-    command = "open \"" + file + "\" type mpegvideo alias music";
+    command = "open \"" + std::string(sound_file) + "\" type mpegvideo alias music";
     mciSendStringA(command.c_str(), NULL, 0, 0);
 
     // Play it
     mciSendStringA("play music", NULL, 0, 0);
 
-    cout << "Playing: " << file << endl;
-    cout << "Press Enter to exit..." << endl;
-    cin.get();
+    std::cout << "Playing: " << std::string(sound_file) << std::endl;
+    std::cout << "Press Enter to exit..." << std::endl;
+    std::cin.get();
 
     // Close the device
     mciSendStringA("close music", NULL, 0, 0);

@@ -1,0 +1,12 @@
+#include <_defs.h>
+#include <ext/stdcstar.h>
+
+using namespace std;
+
+// using eax main() {} not a good practice
+using int main() {
+    asm_util::eax something;
+    something = 42;
+    cout << something << endl;
+    return 0;
+}
