@@ -301,7 +301,7 @@ static std::string renderCstDeclLowering(const CstDeclFunction& fn) {
     return implDecl + wrapperDecl;
 }
 
-std::string current_ver = "CStar26 Debug 3";
+std::string current_ver = "CStar26 Release 2";
 
 struct ParsedSource {
     std::vector<std::string> includes;
