@@ -17,7 +17,13 @@ Copyright (c) November 2025 Hoang Viet. All rights reserved.
 #include <vector>
 #include <regex>
 #include <cstdlib>   // for system/getenv
+#include <cstdio>
 #include "keywords.h"
+
+static bool prepare_output_file(const std::string& path) {
+    std::remove(path.c_str());
+    return true;
+}
 
 bool endsWith(const std::string& str, const std::string& suffix) {
     return str.size() >= suffix.size() &&
@@ -103,9 +109,14 @@ int main(int argc, char* argv[]) {
     std::string base = (pos == std::string::npos) ? filename : filename.substr(0, pos);
     std::string cppFilename = base + ".cpp";
 
-    std::ofstream ofs(cppFilename);
+    if (!prepare_output_file(cppFilename)) {
+        printErrln("Cannot create output file: " + cppFilename + " (the file may be locked, read-only, or still in use).");
+        return 1;
+    }
+
+    std::ofstream ofs(cppFilename, std::ios::out | std::ios::trunc);
     if (!ofs.is_open()) {
-        printErrln("Cannot create output file: " + cppFilename);
+        printErrln("Cannot create output file: " + cppFilename + " (the file may be locked, read-only, or still in use).");
         return 1;
     }
     ofs << "// Transpiled from CStar\n";
@@ -312,6 +323,7 @@ int main(int argc, char* argv[]) {
         std::string stdFlag = "-std=gnu++23";
 
         std::string compileCommand = compiler + " " + includePath + " \"" + cppFilename + "\"";
+        compileCommand += " \"D:/CStar/posix_util.cpp\"";
         if (uselib && !libname.empty()) {
             compileCommand += " " + libname + ".cpp";
         }

@@ -1,7 +1,8 @@
 {
     "files.associations": {
         "*.rlua": "lua",
-        "*.cstar": "cpp",
+        "*.cstar": "cstar",
+        "*.ca": "cstar",
         "atomic": "cpp",
         "bit": "cpp",
         "cctype": "cpp",
@@ -62,6 +63,53 @@
         "ratio": "cpp",
         "regex": "cpp",
         "sstream": "cpp"
+    },
+    "editor.tokenColorCustomizations": {
+        "[Dark Modern]": {
+            "textMateRules": [
+                {
+                    "scope": "punctuation.definition.directive.cstar",
+                    "settings": { "foreground": "#C586C0" }
+                },
+                {
+                    "scope": "keyword.control.directive.cstar",
+                    "settings": { "foreground": "#C586C0" }
+                },
+                {
+                    "scope": "keyword.other.using.cstar",
+                    "settings": { "foreground": "#C586C0" }
+                },
+                {
+                    "scope": "storage.modifier.returnf.cstar",
+                    "settings": { "foreground": "#C586C0" }
+                },
+                {
+                    "scope": "entity.name.namespace.cstar",
+                    "settings": { "foreground": "#4EC9B0" }
+                },
+                {
+                    "scope": "support.type.cstar",
+                    "settings": { "foreground": "#4EC9B0" }
+                },
+                {
+                    "scope": "storage.type.declaration.cstar",
+                    "settings": { "foreground": "#4EC9B0" }
+                },
+                {
+                    "scope": "constant.other.macro.cstar",
+                    "settings": { "foreground": "#DCDCAA" }
+                },
+                {
+                    "scope": "support.variable.cstar",
+                    "settings": { "foreground": "#9CDCFE" }
+                }
+            ]
+        }
+    },
+    "[cstar]": {
+        "editor.autoIndent": "full",
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4
     },
     "makefile.makefilePath": "D:\\CStar\\Makefile",
     "python-envs.defaultEnvManager": "ms-python.python:system",

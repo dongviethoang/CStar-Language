@@ -1,0 +1,41 @@
+{
+  "name": "cstar-language",
+  "displayName": "CStar Language Support",
+  "description": "TextMate syntax highlighting for CStar source files.",
+  "version": "0.2.1",
+  "publisher": "hoangviet",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/beta7developer/CStar-Language/"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "cstar",
+        "aliases": [
+          "CStar",
+          "cstar"
+        ],
+        "extensions": [
+          ".cstar",
+          ".ca",
+          ".hcst"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "cstar",
+        "scopeName": "source.cstar",
+        "path": "./syntaxes/cstar.tmLanguage.json"
+      }
+    ]
+  }
+}

@@ -31,6 +31,7 @@
     #endif
 #endif
 
+/*
 struct cstdecl {
     #warning "This feature is only supported from CStar26 Debug 3 onwards. It may not be available in earlier versions. And it is buggy."
     std::ofstream cstlog;
@@ -42,8 +43,9 @@ struct cstdecl {
         cstlog.close();
     }
 };
+*/
 
-extern cstdecl __cstdecl;
+// extern cstdecl __cstdecl;
 
 namespace asm_util {
     typedef int64_t rax;

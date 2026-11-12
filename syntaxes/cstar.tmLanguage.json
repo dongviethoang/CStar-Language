@@ -1,0 +1,340 @@
+{
+  "scopeName": "source.cstar",
+  "name": "CStar",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#preprocessor" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
+    { "include": "#special-functions" },
+    { "include": "#declarations" },
+    { "include": "#namespaces" },
+    { "include": "#constants" },
+    { "include": "#keywords" },
+    { "include": "#standard-library" },
+    { "include": "#types" },
+    { "include": "#header-macros" },
+    { "include": "#header-variables" },
+    { "include": "#functions" },
+    { "include": "#operators" },
+    { "include": "#punctuation" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.cstar",
+          "begin": "//",
+          "end": "$"
+        },
+        {
+          "name": "comment.block.cstar",
+          "begin": "/\\*",
+          "end": "\\*/"
+        }
+      ]
+    },
+    "preprocessor": {
+      "patterns": [
+        {
+          "name": "meta.preprocessor.cstar",
+          "begin": "^\\s*(#)\\s*(define|undef)\\s+([A-Za-z_][A-Za-z0-9_]*)(?=\\s|\\(|$)",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.directive.cstar" },
+            "2": { "name": "keyword.control.directive.cstar" },
+            "3": { "name": "constant.other.macro.cstar" }
+          },
+          "end": "(?=$)",
+          "patterns": [
+            { "include": "#strings" },
+            { "include": "#comments" },
+            {
+              "name": "constant.numeric.cstar",
+              "match": "\\b(?:0[xX][0-9A-Fa-f]+|0[bB][01]+|[0-9]+)\\b"
+            }
+          ]
+        },
+        {
+          "name": "meta.preprocessor.cstar",
+          "begin": "^\\s*(#)\\s*(ifdef|ifndef)\\b\\s*([A-Za-z_][A-Za-z0-9_]*)?",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.directive.cstar" },
+            "2": { "name": "keyword.control.directive.cstar" },
+            "3": { "name": "constant.other.macro.cstar" }
+          },
+          "end": "(?=$)"
+        },
+        {
+          "name": "meta.preprocessor.cstar",
+          "begin": "^\\s*(#)\\s*(include|define|undef|if|ifdef|ifndef|elif|else|endif|pragma|error|warning)\\b",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.directive.cstar" },
+            "2": { "name": "keyword.control.directive.cstar" }
+          },
+          "end": "(?=$)",
+          "patterns": [
+            { "include": "#strings" },
+            {
+              "name": "string.quoted.other.lt-gt.include.cstar",
+              "begin": "<",
+              "end": ">"
+            },
+            { "include": "#comments" },
+            {
+              "name": "constant.numeric.cstar",
+              "match": "\\b(?:0[xX][0-9A-Fa-f]+|0[bB][01]+|[0-9]+)\\b"
+            }
+          ]
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.cstar",
+          "begin": "\"",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.string.begin.cstar" }
+          },
+          "end": "\"",
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.cstar" }
+          },
+          "patterns": [
+            {
+              "name": "constant.character.escape.cstar",
+              "match": "\\\\(?:[abfnrtv\\\\?'\"]|x[0-9A-Fa-f]{1,2}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8}|[0-7]{1,3})"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.cstar",
+          "begin": "'",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.string.begin.cstar" }
+          },
+          "end": "'",
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.cstar" }
+          },
+          "patterns": [
+            {
+              "name": "constant.character.escape.cstar",
+              "match": "\\\\(?:[abfnrtv\\\\?'\"]|x[0-9A-Fa-f]{1,2}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8}|[0-7]{1,3})"
+            }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.cstar",
+          "match": "\\b(?:0[xX][0-9A-Fa-f]+|0[bB][01]+|(?:[0-9]+\\.?[0-9]*|\\.[0-9]+)(?:[eE][+-]?[0-9]+)?)[uUlLfF]*\\b"
+        }
+      ]
+    },
+    "special-functions": {
+      "patterns": [
+        {
+          "name": "support.function.console.cstar",
+          "match": "\\bConsole\\.WriteLine\\b"
+        },
+        {
+          "name": "support.function.system.cstar",
+          "match": "\\bSystem\\.out\\.println\\b"
+        },
+        {
+          "name": "storage.type.function.cstar",
+          "match": "\\busingfunc::integerfunc\\b"
+        },
+        {
+          "name": "storage.modifier.cstar",
+          "match": "\\b__cstdecl\\b"
+        },
+        {
+          "name": "support.function.cstar",
+          "match": "\\bimportlib(?=\\s*\\()"
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "name": "constant.language.cstar",
+          "match": "\\b(?:true|false|nullptr|NULL)\\b"
+        },
+        {
+          "name": "constant.language.cstar",
+          "match": "\\b(?:EOF|EXIT_SUCCESS|EXIT_FAILURE)\\b"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "storage.modifier.returnf.cstar",
+          "match": "\\breturnf\\b"
+        },
+        {
+          "name": "keyword.control.cstar",
+          "match": "\\b(?:if|else|while|for|return|rtrn|break|continue|switch|case|default|do|try|catch|throw|co_return|co_yield|static_assert)\\b"
+        },
+        {
+          "name": "storage.modifier.cstar",
+          "match": "\\b(?:class|public|private|protected|static|const|namespace|extern|volatile|explicit|friend|synchronized|abstract|final|native|strictfp|template|typename|this|__cdecl|alignas|constexpr|consteval|constinit|decltype|inline|mutable|noexcept|override|register|requires|thread_local|export|module|import|typedef)\\b"
+        },
+        {
+          "name": "keyword.other.using.cstar",
+          "match": "\\busing\\b"
+        },
+        {
+          "name": "storage.type.declaration.cstar",
+          "match": "\\b(?:struct|union|enum|Interface|concept)\\b"
+        },
+        {
+          "name": "keyword.operator.word.cstar",
+          "match": "\\b(?:sizeof|alignof|new|delete|and|or|not|bitand|bitor|compl|not_eq|xor|and_eq|or_eq|xor_eq|typeid|dynamic_cast|static_cast|reinterpret_cast|const_cast|co_await)\\b"
+        },
+        {
+          "name": "keyword.operator.overload.cstar",
+          "match": "\\boperator\\b"
+        }
+      ]
+    },
+    "types": {
+      "patterns": [
+        {
+          "name": "storage.type.primitive.cstar",
+          "match": "\\b(?:void|bool|char|wchar_t|char8_t|char16_t|char32_t|short|int|long|signed|unsigned|float|double|string|auto|size_t|int8_t|int16_t|int32_t|int64_t|uint8_t|uint16_t|uint32_t|uint64_t)\\b"
+        },
+        {
+          "name": "storage.type.cstar",
+          "match": "\\b(?:ULLI|LLI|eightbyte|byte|var|def|__stdchar_t|__dword|__udword|__qword|__uqword|__str)\\b"
+        },
+        {
+          "name": "support.type.cstar",
+          "match": "\\b(?:cstdecl|System|Out|Delay|integerfunc|integer|str|ref|OUTKEY|UNIX|CONSOLE|CSTRFORLIB|PluginFuncType|CSTImportedFunction|FunctionType|cstarstr|adv_array|r|LAUNCHER|SYS|keyboard|termios|POSIXSTR|POSIXWSTR|dl_handle_t|HMODULE|winconsole)\\b"
+        },
+        {
+          "name": "storage.type.register.cstar",
+          "match": "\\b(?:rax|rbx|rcx|rdx|eax|ebx|ecx|edx|ax|bx|cx|dx|al|bl|cl|dl|ah|bh|ch|dh|st[0-7])\\b"
+        }
+      ]
+    },
+    "standard-library": {
+      "patterns": [
+        {
+          "name": "support.type.cpp.cstar",
+          "match": "\\b(?:basic_filebuf|basic_fstream|basic_ifstream|basic_ofstream|basic_ios|basic_istream|basic_ostream|basic_streambuf|filebuf|fstream|ifstream|ios|iostream|istream|istreambuf_iterator|ofstream|ostream|ostreambuf_iterator|osyncstream|spanbuf|spanstream|streambuf|strstream|syncbuf|wfilebuf|wfstream|wifstream|wios|wistringstream|wistream|wofstream|wostringstream|wostream|wstreambuf|wstringstream|wstringbuf|array|atomic|atomic_flag|barrier|bitset|condition_variable|condition_variable_any|deque|exception|file_status|file_type|forward_list|future|generator|jthread|latch|list|map|memory_resource|multimap|multiset|mutex|optional|queue|priority_queue|promise|recursive_mutex|recursive_timed_mutex|regex|scoped_lock|semaphore|set|shared_lock|shared_mutex|shared_ptr|shared_timed_mutex|span|stack|stop_source|stop_token|string|string_view|system_error|thread|timed_mutex|tuple|type_index|type_info|unique_lock|unique_ptr|unordered_map|unordered_multimap|unordered_multiset|unordered_set|valarray|variant|vector|weak_ptr|wstring|wstring_view|any|allocator|bit_cast|char_traits|complex|duration|error_code|error_condition|expected|flat_map|flat_set|format_string|function|initializer_list|lock_guard|mdspan|move_only_function|numeric_limits|pair|packaged_task|path|random_device|ratio|shared_future|stop_callback|time_point)\\b"
+        },
+        {
+          "name": "support.variable.cpp.cstar",
+          "match": "\\b(?:cin|cout|cerr|clog|wcin|wcout|wcerr|wclog)\\b"
+        },
+        {
+          "name": "support.function.cpp.cstar",
+          "match": "\\b(?:all_of|any_of|binary_search|clamp|copy|count|count_if|equal_range|find|find_if|for_each|lower_bound|max|min|move|remove|remove_if|replace|reverse|sort|stable_sort|transform|unique|upper_bound|begin|cbegin|cend|end|data|size|ssize|empty|swap|exchange|forward|get|make_pair|make_shared|make_unique|make_tuple|tie|to_string|stoi|stol|stoll|stoul|stoull|stof|stod|stold|accumulate|inner_product|iota|quoted|setbase|setfill|setprecision|setw)(?=\\s*\\()"
+        },
+        {
+          "name": "support.constant.cpp.cstar",
+          "match": "\\b(?:boolalpha|noboolalpha|dec|fixed|flush|hex|internal|left|oct|right|scientific|showbase|noshowbase|showpoint|noshowpoint|showpos|noshowpos|skipws|noskipws|unitbuf|nounitbuf|uppercase|nouppercase|endl|ends|ws)\\b"
+        }
+      ]
+    },
+    "namespaces": {
+      "patterns": [
+        {
+          "name": "meta.using.namespace.cstar",
+          "match": "\\b(using)\\s+(namespace)\\s+([A-Za-z_][A-Za-z0-9_]*)",
+          "captures": {
+            "1": { "name": "keyword.other.using.cstar" },
+            "2": { "name": "storage.modifier.cstar" },
+            "3": { "name": "entity.name.namespace.cstar" }
+          }
+        },
+        {
+          "name": "meta.definition.namespace.cstar",
+          "match": "\\b(namespace)\\s+([A-Za-z_][A-Za-z0-9_]*)\\s*(?=\\{|=)",
+          "captures": {
+            "1": { "name": "storage.modifier.cstar" },
+            "2": { "name": "entity.name.namespace.cstar" }
+          }
+        },
+        {
+          "name": "entity.name.namespace.cstar",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_]*(?=::)"
+        }
+      ]
+    },
+    "declarations": {
+      "patterns": [
+        {
+          "name": "meta.definition.type.cstar",
+          "match": "\\b(enum)\\s+(class|struct)\\s+([A-Za-z_][A-Za-z0-9_]*)",
+          "captures": {
+            "1": { "name": "storage.type.declaration.cstar" },
+            "2": { "name": "storage.type.declaration.cstar" },
+            "3": { "name": "entity.name.type.cstar" }
+          }
+        },
+        {
+          "name": "meta.definition.type.cstar",
+          "match": "\\b(class|struct|union|enum|Interface)\\s+([A-Za-z_][A-Za-z0-9_]*)",
+          "captures": {
+            "1": { "name": "storage.type.declaration.cstar" },
+            "2": { "name": "entity.name.type.cstar" }
+          }
+        }
+      ]
+    },
+    "header-macros": {
+      "patterns": [
+        {
+          "name": "constant.other.macro.cstar",
+          "match": "\\b(?:[A-Z][A-Z0-9_]*|rtrn_code|brl|space|newline|tab|el|not_a_pin|not_a_port|play_sound|play_music|__LPM_enhanced__|__LPM_word)\\b"
+        }
+      ]
+    },
+    "header-variables": {
+      "patterns": [
+        {
+          "name": "support.variable.cstar",
+          "match": "\\b(?:random|launcher|sys|kb|posix_errno|fd_table)\\b"
+        }
+      ]
+    },
+    "functions": {
+      "patterns": [
+        {
+          "name": "entity.name.function.cstar",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_]*(?=\\s*\\()"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.cstar",
+          "match": "(?:<=>|->\\*|\\.\\*|\\.\\.\\.|\\+\\+|--|->|::|<<=?|>>=?|<=|>=|==|!=|&&|\\|\\||\\+=|-=|\\*=|/=|%=|&=|\\|=|\\^=|=|\\+|-|\\*|/|%|<|>|!|~|&|\\||\\^|\\?|:)"
+        }
+      ]
+    },
+    "punctuation": {
+      "patterns": [
+        {
+          "name": "punctuation.section.block.cstar",
+          "match": "[{}]"
+        },
+        {
+          "name": "punctuation.section.group.cstar",
+          "match": "[()]"
+        },
+        {
+          "name": "punctuation.separator.cstar",
+          "match": "[;,\\[\\].]"
+        }
+      ]
+    }
+  }
+}

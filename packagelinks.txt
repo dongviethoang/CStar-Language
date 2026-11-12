@@ -1,0 +1,7 @@
+https://github.com/libsdl-org/SDL/releases
+https://github.com/boostorg/boost
+https://github.com/opencv/opencv
+https://github.com/KhronosGroup/Vulkan-Docs
+https://github.com/sqlite/sqlite
+https://github.com/libssh2/libssh2
+https://github.com/libssh/libssh-mirror

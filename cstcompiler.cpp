@@ -22,9 +22,29 @@ Copyright (c) November 2025 Hoang Viet. All rights reserved.
 #include <vector>
 #include <regex>
 #include <cstdlib>   // for system/getenv
+#include <cstdio>
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <windows.h>
+#endif
 #include "keywords.h"
 
 static std::string trim(const std::string& s);
+
+static bool prepare_output_file(const std::string& path) {
+#ifdef _WIN32
+    DWORD attrs = GetFileAttributesA(path.c_str());
+    if (attrs != INVALID_FILE_ATTRIBUTES && (attrs & FILE_ATTRIBUTE_READONLY)) {
+        SetFileAttributesA(path.c_str(), attrs & ~FILE_ATTRIBUTE_READONLY);
+    }
+#endif
+
+    std::remove(path.c_str());
+    return true;
+}
 
 bool endsWith(const std::string& str, const std::string& suffix) {
     return str.size() >= suffix.size() &&
@@ -580,7 +600,10 @@ public:
         while (std::getline(sourceStream, textLine)) {
             std::string trimmed = trim(textLine);
             if (trimmed.empty()) continue;
-            if (trimmed.find("#include") != std::string::npos) continue;
+            if (trimmed.rfind("#include", 0) == 0) {
+                parsed.includes.push_back(trimmed);
+                continue;
+            }
             if (trimmed.find("__cstdecl") != std::string::npos) continue;
             if (trimmed.find("int main") != std::string::npos) continue;
             parsed.globalFunctions.push_back(trimmed);
@@ -672,9 +695,14 @@ int main(int argc, char* argv[]) {
     std::string base = (pos == std::string::npos) ? filename : filename.substr(0, pos);
     std::string cppFilename = base + ".cpp";
 
-    std::ofstream ofs(cppFilename);
+    if (!prepare_output_file(cppFilename)) {
+        printErrln("Cannot create output file: " + cppFilename + " (the file may be locked, read-only, or still in use).");
+        return 1;
+    }
+
+    std::ofstream ofs(cppFilename, std::ios::out | std::ios::trunc);
     if (!ofs.is_open()) {
-        printErrln("Cannot create output file: " + cppFilename);
+        printErrln("Cannot create output file: " + cppFilename + " (the file may be locked, read-only, or still in use).");
         return 1;
     }
     ofs << "// Transpiled from CStar\n";
@@ -778,6 +806,12 @@ int main(int argc, char* argv[]) {
 
     ofs.close();
 
+#ifdef _WIN32
+    if (!SetFileAttributesA(cppFilename.c_str(), FILE_ATTRIBUTE_HIDDEN)) {
+        printErrln("Warning: could not hide transpiled file: " + cppFilename);
+    }
+#endif
+
     // Compile to .exe if -c flag is present
     if (compileFlag) {
         std::string includePath = "-I\"D:/CStar/include\"";
@@ -791,6 +825,7 @@ int main(int argc, char* argv[]) {
         std::string stdFlag = "-std=gnu++2c";
 
         std::string compileCommand = compiler + " " + includePath + " \"" + cppFilename + "\"";
+        compileCommand += " \"D:/CStar/posix_util.cpp\"";
         if (uselib && !libname.empty()) {
             compileCommand += " " + libname + ".cpp";
         }

@@ -2,7 +2,7 @@
 
 string args[1] = {"test"};
 
-usingfunc::integerfunc mainfunc(int argc, char* argv[])
+usingfunc::integerfunc mainfunc(int argc, char* argv[]) // this is now unsupported permanently.
 {
     System.out.println(args[1]);
     return 0;

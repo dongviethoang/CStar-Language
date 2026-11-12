@@ -5,9 +5,6 @@
 #include <vector>
 #include <thread>
 #include <chrono>
-#include <_defs.h>
-
-cstdecl __cstdecl;
 
 // Forward declarations
 class Out;

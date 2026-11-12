@@ -1,6 +1,4 @@
 #include "include/posix_util.h"
-#include <fstream>
-#include <vector>
 
-int posix_errno = 0;
-std::vector<std::fstream*> fd_table;
+// The POSIX runtime state is defined as inline variables in the header so any
+// transpiled translation unit can include the same API without duplicating symbols.

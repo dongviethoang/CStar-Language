@@ -1,0 +1,31 @@
+/*
+
+*/
+
+#ifndef _CA_PACKAGE_MGR
+#define _CA_PACKAGE_MGR
+
+#include <print>
+#include <ext/stdcstar.h>
+#include <_defs.h>
+#include <string>
+#include <cstapi>
+// #include <git2.h>
+#include <fstream>
+#include <dset_mgmt.hpp>
+
+using namespace std;
+using namespace st;
+
+class _CA_PACKAGE_MGR_LIBGIT_HANDLER {
+    public:
+    int count;  
+};
+
+using int main(int argc, char **argv) {
+    fstream mgr_links_dataset("packagelinks.txt");
+    dset::mgr::read_and_print_dataset(mgr_links_dataset, 6);
+    return 0;
+}
+
+#endif

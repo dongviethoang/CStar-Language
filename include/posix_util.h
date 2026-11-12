@@ -12,6 +12,7 @@
 typedef const char* POSIXSTR;
 // POSIX wide string
 typedef const wchar_t* POSIXWSTR;
+#define char_t char
 #endif
 
 #ifndef __errors_posix
@@ -39,14 +40,14 @@ typedef const wchar_t* POSIXWSTR;
 
 #ifndef _LIB_POSIX_FILEIO
 #define _LIB_POSIX_FILEIO
-extern int posix_errno;
-extern std::vector<std::fstream*> fd_table;
+inline int posix_errno = 0;
+inline std::vector<std::fstream*> fd_table;
 
-int getcurrenterrno() {
+inline int getcurrenterrno() {
     return posix_errno;
 }
 
-ssize_t fileread(std::string file, int fd, void *buf, size_t mbytes) {
+inline ssize_t fileread(std::string file, int fd, void *buf, size_t mbytes) {
     // bad FD → EBADF equivalent, but use ENXIO (no such device/address)
     if (fd < 0 || fd >= (int)fd_table.size() || fd_table[fd] == nullptr) {
         posix_errno = ENXIO;
@@ -87,7 +88,7 @@ ssize_t fileread(std::string file, int fd, void *buf, size_t mbytes) {
     return (ssize_t)count;
 }
 
-ssize_t filewrite(int fd, const void *buf, size_t mbytes) {
+inline ssize_t filewrite(int fd, const void *buf, size_t mbytes) {
     // invalid descriptor
     if (fd < 0 || fd >= (int)fd_table.size() || fd_table[fd] == nullptr) {
         posix_errno = ENXIO;
